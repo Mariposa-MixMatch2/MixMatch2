@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             xmlns:vm="clr-namespace:MixMatch2.Shared.ViewModels"
+             xmlns:tc="clr-namespace:MixMatch2.Shared.Views.Tests"
+             x:Class="MixMatch2.Shared.Views.Pages.TestsPage"
+             Title="TestsPage">
+    <ContentPage.BindingContext>
+        <vm:TestsViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="12*"/>
+            <ColumnDefinition Width="8*"/>
+        </Grid.ColumnDefinitions>
+
+        <VerticalStackLayout
+            Grid.Column="0">
+            <tc:TestsContainer 
+                HeightRequest="50"
+                Tests="{Binding SerializationTests}"
+                TestExecuted="{Binding SerializationTestsExecuted}"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout 
+            Grid.Column="1"
+            BackgroundColor="Gray">
+            <Label 
+                VerticalOptions="Center"
+                Margin="10" Padding="10"
+                FontSize="40">
+                Test Status
+            </Label>
+            <lvc:CartesianChart
+                TooltipPosition="Hidden"
+                VerticalOptions="Fill"
+                HeightRequest="200"
+                Series="{Binding TestSuccessSeries}"
+                YAxes="{Binding YAxis}"
+                ZoomMode="X"/>
+            
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
