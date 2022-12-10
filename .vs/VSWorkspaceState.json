@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
+    "\\docs",
     "\\src"
   ],
-  "SelectedNode": "\\src\\MixMatch2.sln",
+  "SelectedNode": "\\docs\\contributing.md",
   "PreviewInSolutionExplorer": false
 }
