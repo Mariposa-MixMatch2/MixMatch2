@@ -2,21 +2,85 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:MixMatch2.Shared.Views.Tests"
+             xmlns:md ="clr-namespace:MixMatch2.Resources.Helpers"
              x:Class="MixMatch2.Shared.Views.Tests.TestsContainer">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Color x:Key="TestNotRan">#1ecbce</Color>
+            <Color x:Key="TestSuccess">#59f940</Color>
+            <Color x:Key="TestFailed">#f94040</Color>
+            <Color x:Key="TestPartial">#f99740</Color>
 
+        </ResourceDictionary>
+    </ContentView.Resources>
     <Border
+        x:Name="OuterBorder"
         StrokeThickness="2"
-        Stroke="#000000"
         StrokeShape="RoundRectangle 3,3,3,3">
-        <VerticalStackLayout
-            BackgroundColor="DarkGray">
-            <HorizontalStackLayout>
+        <Border.Stroke>
+            <LinearGradientBrush x:Name="OuterBrush">
+                <GradientStop Color="{StaticResource TestNotRan}" Offset="0"/>
+                <GradientStop Color="{StaticResource Slate}" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Stroke>
+        <Grid
+            x:Name="OuterGrid"
+            BackgroundColor="{StaticResource Slate}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="0" x:Name="ExpandingRow"/>
+            </Grid.RowDefinitions>
 
-            </HorizontalStackLayout>
-            <VerticalStackLayout x:Name="IndividualTests">
+            <Button 
+                Grid.Column="0"
+                Grid.Row="0"
+                x:Name="RunAllTests"
+                WidthRequest="30" HeightRequest="30"
+                BackgroundColor="Transparent"
+                BorderColor="Transparent"
+                FontFamily="MaterialDesignIcons"
+                Text="{x:Static md:MaterialDesignIconsFonts.Play}"
+                FontSize="30"
+                Clicked="RunAllTestsOnClick"/>
 
+            <Label 
+                Grid.Column="1"
+                Grid.Row="0"
+                x:Name="ContainerLabel" 
+                HeightRequest="30" 
+                VerticalTextAlignment="Center"
+                VerticalOptions="Center"
+                FontSize="25"/>
+            <Button 
+                Grid.Column="3"
+                Grid.Row="0"
+                x:Name="ExpandTestContainer"
+                HeightRequest="30"
+                BackgroundColor="Transparent"
+                BorderColor="Transparent"
+                FontFamily="MaterialDesignIcons"
+                Clicked="ExpandTestContainer_OnClicked"
+                Text="{x:Static md:MaterialDesignIconsFonts.ChevronDown}"
+                FontSize="30"
+                HorizontalOptions="Fill"/>
+
+            
+            <VerticalStackLayout
+                IsVisible="False"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Grid.Row="1" 
+                x:Name="IndividualTests"
+                Margin="50, 0, 0, 0">
+                
             </VerticalStackLayout>
-        </VerticalStackLayout>
+        </Grid>
     </Border>
     
 </ContentView>

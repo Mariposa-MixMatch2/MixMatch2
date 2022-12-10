@@ -41,6 +41,9 @@ namespace MixMatch2.Shared.ViewModels
         private ObservableCollection<ObservableValue> _testsTotal;
         private ObservableCollection<ObservableValue> _testsSuccesses;
 
+        /// <summary>
+        /// Creates a new TestsViewModel
+        /// </summary>
         public TestsViewModel()
         {
             var initVals = GetTestTotal(new[]
@@ -82,6 +85,11 @@ namespace MixMatch2.Shared.ViewModels
                 canExecute: (discard) => true);
         }
 
+        /// <summary>
+        /// Helper function to generate the graphs.
+        /// </summary>
+        /// <param name="tests">An array of the ITest arrays used to generate the TestContainers. </param>
+        /// <returns>An array of ObservableCollections used to create the column chart.</returns>
         private static ObservableCollection<ObservableValue>[] GetTestTotal(ITest[][] tests)
         {
             var ret = new ObservableCollection<ObservableValue>();
@@ -111,7 +119,12 @@ namespace MixMatch2.Shared.ViewModels
                 }
             }
         };
-
+        /// <summary>
+        /// Gets a test by path, from the Tests root path.
+        /// </summary>
+        /// <param name="testPath">A path, such as "SeralizationTests/Mp3MetadataSerializationTest" </param>
+        /// <returns> An instance of a test. </returns>
+        /// <exception cref="ArgumentException"> The path provided does not exist. </exception>
         public static ITest GetTest(string testPath)
         {
             var path = testPath.Split('/');

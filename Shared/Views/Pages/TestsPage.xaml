@@ -19,9 +19,9 @@
         <VerticalStackLayout
             Grid.Column="0">
             <tc:TestsContainer 
-                HeightRequest="50"
                 Tests="{Binding SerializationTests}"
-                TestExecuted="{Binding SerializationTestsExecuted}"/>
+                TestExecuted="{Binding SerializationTestsExecuted}"
+                Name="SerializationTests"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout 

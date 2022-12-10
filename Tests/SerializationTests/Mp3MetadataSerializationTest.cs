@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 using Microsoft.Win32.SafeHandles;
 using MixMatch2.Shared.Interfaces;
@@ -13,41 +14,63 @@ namespace MixMatch2.Tests.SerializationTests
 {
     internal class Mp3MetadataSerializationTest : ITest
     {
-        private readonly Mp3Metadata _testMetadata;
-        private readonly XmlSerializer _formatter;
+        private readonly Metadata _testMetadata;
 
+        /// <summary>
+        /// Creates a new Mp3MetadataSerializationTest
+        /// </summary>
         public Mp3MetadataSerializationTest()
         {
-            _testMetadata = new Mp3Metadata();
-            _testMetadata.Tags.AddRange(new[]
+            _testMetadata = new Metadata()
             {
-                new MetadataTag("testString", "myString"),
-                new MetadataTag("testPath", "./myPath.mp3"),
-                new MetadataTag("testNum", 123.45),
-                new MetadataTag("myCustomTags", new MixMatchTag(new()
                 {
-                    { "mixMatchTag1", "myValue1" },
-                    { "mixMatchTag2", "myValue2" }
-                })),
-                new MetadataTag("myNestedTag", new MetadataTag("myKey", "myValue"))
-            });
-
-            
-
-            _formatter = new XmlSerializer(typeof(Mp3Metadata), new []
-            {
-                typeof(MetadataTag)
-            });
+                    "testString", 
+                    "myString"
+                },
+                {
+                    "testNum", 
+                    123.45
+                },
+                {
+                    "customTags", 
+                    new MixMatchTag
+                    {
+                        { "mixMatchTag1", "myValue1" },
+                        { "mixMatchTag2", "myValue2" }
+                    }
+                },
+                {
+                    "testNested",
+                    new Metadata
+                    {
+                        {
+                            "innerTestString",
+                            "innerStringValue"
+                        },
+                        {
+                            "innerTestNum",
+                            678.90
+                        }
+                    }
+                }
+            };
         }
+
+        /// <summary>
+        /// Begins this test asynchronously. 
+        /// </summary>
+        /// <returns>An awaitable TestResult. </returns>
         public async Task<TestResult> StartTest()
         {
             try
             {
                 await Task.Run(() =>
                 {
-                    var fs = new FileStream(@"C:\Users\Liam\Desktop\Mp3MetadataSerializeTest.xml", FileMode.Create);
-                    _formatter.Serialize(fs, _testMetadata);
-                    fs.Close();
+                    const string path = @"C:\Users\Liam\Desktop\Mp3MetadataSerializeTest.xml";
+                    var stream = File.OpenWrite(path);
+                    var xml = _testMetadata.Serialize();
+                    xml.Save(stream);
+                    stream.Close();
                 });
                 return new TestResult(true, "Test Succeeded");
             }
@@ -58,7 +81,10 @@ namespace MixMatch2.Tests.SerializationTests
             
 
         }
-
+        /// <summary>
+        /// Returns the name of this test.
+        /// </summary>
+        /// <returns> The name of this test. </returns>
         public override string ToString()
         {
             return "Mp3MetadataSerializationTest";

@@ -1,8 +1,8 @@
-﻿using MixMatch2.Shared.Interfaces;
+﻿using MixMatch2.Shared.Models.Metadata;
 
 namespace MixMatch2.Shared.Interfaces;
 
 public interface ISong
 {
-    public IMetadata Metadata { get; set; }
+    
 }
