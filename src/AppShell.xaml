@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+	   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	   xmlns:pages="clr-namespace:MixMatch2.Shared.Views.Pages"
+	   xmlns:helpers="clr-namespace:MixMatch2.Resources.Helpers"
+	   x:Class="MixMatch2.AppShell"
+	   Title="AppShell"
+	   FlyoutWidth="56"
+	   FlyoutBehavior="{OnIdiom Phone=Disabled,Default=Locked}">
+
+
+	<MenuItem Clicked="MenuItem_OnClicked">
+		<MenuItem.IconImageSource>
+			<FontImageSource
+				FontFamily="MaterialDesignIcons"
+				Size="100"
+                Glyph="{Static helpers:MaterialDesignIconsFonts.Menu}" />
+		</MenuItem.IconImageSource>
+    </MenuItem>
+
+	<FlyoutItem Title="Home">
+		<FlyoutItem.Icon>
+			<FontImageSource
+				FontFamily="MaterialDesignIcons"
+				Size="55"
+				Glyph="{Static helpers:MaterialDesignIconsFonts.Home}" />
+		</FlyoutItem.Icon>
+		<ShellContent ContentTemplate="{DataTemplate pages:HomePage}" />
+	</FlyoutItem>
+	<FlyoutItem Title="Tests">
+		<FlyoutItem.Icon>
+			<FontImageSource
+				FontFamily="MaterialDesignIcons"
+				Size="55"
+				Glyph="{Static helpers:MaterialDesignIconsFonts.TestTube}" />
+		</FlyoutItem.Icon>
+		<ShellContent ContentTemplate="{DataTemplate pages:TestsPage}" />
+	</FlyoutItem>
+
+	<TabBar x:Name="Tabs">
+		<Tab Title="Home">
+			<Tab.Icon>
+				<FontImageSource
+					FontFamily="MaterialDesignIcons"
+					Size="25"
+					Glyph="{x:Static helpers:MaterialDesignIconsFonts.Home}" />
+			</Tab.Icon>
+			<ShellContent ContentTemplate="{DataTemplate pages:HomePage}" />
+		</Tab>
+		<Tab Title="Tests">
+			<Tab.Icon>
+				<FontImageSource
+					FontFamily="MaterialDesignIcons"
+					Size="25"
+					Glyph="{x:Static helpers:MaterialDesignIconsFonts.TestTube}" />
+			</Tab.Icon>
+			<ShellContent ContentTemplate="{DataTemplate pages:TestsPage}" />
+		</Tab>
+	</TabBar>
+
+</Shell>
