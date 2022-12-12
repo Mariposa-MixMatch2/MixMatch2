@@ -23,7 +23,8 @@ namespace MixMatch2.Shared.ViewModels
         #region SerializationTests
         public ITest[] SerializationTests { get; set; } =
         {
-            TestReference.GetTest("SerializationTests/Mp3MetadataSerializationTest")
+            TestReference.GetTest("SerializationTests/Mp3MetadataSerializationTest"),
+            TestReference.GetTest("SerializationTests/Mp3MetadataDeserializationTest")
         };
         public ICommand SerializationTestsExecuted { get; set; }
         #endregion
@@ -49,7 +50,7 @@ namespace MixMatch2.Shared.ViewModels
             var initVals = GetTestTotal(new[]
             {
                 SerializationTests
-            });
+			});
 
             _testsTotal = initVals[0];
             _testsSuccesses = initVals[1];
@@ -115,7 +116,11 @@ namespace MixMatch2.Shared.ViewModels
                         
                         "Mp3MetadataSerializationTest", 
                         new Mp3MetadataSerializationTest()
-                    }
+                    },
+					{
+                        "Mp3MetadataDeserializationTest",
+                        new Mp3MetadataDeserializationTest()
+					}
                 }
             }
         };

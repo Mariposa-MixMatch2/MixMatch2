@@ -50,6 +50,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Shared\Models\Tests\**" />
+	  <AndroidResource Remove="Shared\Views\Controls\Menu\**" />
+	  <Compile Remove="Shared\Models\Tests\**" />
+	  <Compile Remove="Shared\Views\Controls\Menu\**" />
+	  <EmbeddedResource Remove="Shared\Models\Tests\**" />
+	  <EmbeddedResource Remove="Shared\Views\Controls\Menu\**" />
+	  <MauiCss Remove="Shared\Models\Tests\**" />
+	  <MauiCss Remove="Shared\Views\Controls\Menu\**" />
+	  <MauiXaml Remove="Shared\Models\Tests\**" />
+	  <MauiXaml Remove="Shared\Views\Controls\Menu\**" />
+	  <None Remove="Shared\Models\Tests\**" />
+	  <None Remove="Shared\Views\Controls\Menu\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\Fonts\materialdesignicons-webfont.ttf" />
 	</ItemGroup>
 
@@ -71,11 +86,6 @@
 	  <MauiXaml Update="Shared\Views\Pages\TestsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Shared\Models\Tests\" />
-	  <Folder Include="Shared\Views\Controls\Menu\" />
 	</ItemGroup>
 
 	<ItemGroup>

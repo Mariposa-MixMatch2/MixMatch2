@@ -91,8 +91,7 @@ public partial class TestsContainer : ContentView
         text.VerticalTextAlignment = TextAlignment.Center;
         text.VerticalOptions = LayoutOptions.Center;
         text.Text = Tests[index].ToString();
-        text.WidthRequest = 200;
-        text.HeightRequest = 30;
+		text.HeightRequest = 30;
         text.VerticalTextAlignment = TextAlignment.Center;
         text.VerticalOptions = LayoutOptions.Center;
 
@@ -209,7 +208,7 @@ public partial class TestsContainer : ContentView
                     }
                     rotation = 180 + 180 * progress;
                     height = MathHelper.MapRange(new Range(0, 1),
-                        new Range(50 * _individualTests.Length, 0), progress);
+                        new Range(30 * _individualTests.Length, 0), progress);
 
                     var stroke = new LinearGradientBrush(
                         new GradientStopCollection
@@ -254,7 +253,7 @@ public partial class TestsContainer : ContentView
                     }
                     rotation = 180 * progress;
                     height = MathHelper.MapRange(new Range(0, 1),
-                        new Range(0, 50 * _individualTests.Length), progress);
+                        new Range(0, 30 * _individualTests.Length), progress);
 
                     var stroke = new LinearGradientBrush(
                         new GradientStopCollection

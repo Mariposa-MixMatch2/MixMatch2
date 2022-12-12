@@ -12,11 +12,11 @@ public class TestResult
     public string Message { get; }
     public string Details { get; }
 
-    public TestResult(bool success, string message, string details = "")
+    public TestResult(bool success, string message, string? details = "")
     {
         Success = success;
         Message = message;
-        Details = details;
+		Details = details ?? "";
     }
 
 }

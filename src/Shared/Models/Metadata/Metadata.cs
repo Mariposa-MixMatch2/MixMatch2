@@ -91,9 +91,28 @@ public class Metadata : IEnumerable, IEnumerator
     /// <param name="xml"></param>
     /// <returns></returns>
     public static Metadata Deserialize(XElement xml)
-    {
-        return null;
-    }
+	{
+		var keys =
+			from elem in xml.Elements()
+			select new KeyValuePair<string, Tuple<MetadataTagValueTypes, object>>
+			(
+				elem.Attribute("key").Value,
+                new Tuple<MetadataTagValueTypes, object>(
+                    elem.Attribute("type").Value.Equals("string") ? MetadataTagValueTypes.String :
+					elem.Attribute("type").Value.Equals("number") ? MetadataTagValueTypes.Number :
+					elem.Attribute("type").Value.Equals("mixMatchTag") ? MetadataTagValueTypes.MixMatchTags :
+					elem.Attribute("type").Value.Equals("nested") ? MetadataTagValueTypes.Nested :
+                    MetadataTagValueTypes.Error,
+
+					elem.Attribute("type").Value.Equals("string") ? elem.Value :
+					elem.Attribute("type").Value.Equals("number") ? double.Parse(elem.Value) :
+					elem.Attribute("type").Value.Equals("mixMatchTag") ? MixMatchTag.Deserialize(elem.Elements().First()) :
+					elem.Attribute("type").Value.Equals("nested") ? Metadata.Deserialize(elem.Elements().First()) : null
+				)
+			);
+
+		return new Metadata(keys.ToDictionary(x => x.Key, x => x.Value));
+	}
 
     /// <summary>
     /// Creates a new, empty Metadata object
@@ -277,6 +296,22 @@ public class MixMatchTag : IEnumerable, IEnumerator
             select new XElement("MixMatchTag", key, value)).ToArray();
         return new XElement("MixMatchTags", content);
     }
+
+    /// <summary>
+    /// Deserializes an XElement into a MixMatchTag
+    /// </summary>
+    /// <returns>
+    /// A new MixMatchTag
+    /// </returns>
+	public static MixMatchTag Deserialize(XElement xml)
+	{
+		var kvps =
+			from elem in xml.Elements()
+			select new[] { elem.Attribute("key").Value, elem.Attribute("value").Value };
+
+		return new MixMatchTag(kvps.ToDictionary(x => x[0], x => x[1]));
+
+	}
     /// <summary>
     /// IEnumerable implementation. Do not call.
     /// </summary>
