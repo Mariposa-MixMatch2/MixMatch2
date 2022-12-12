@@ -66,11 +66,12 @@ namespace MixMatch2.Tests.SerializationTests
             {
                 await Task.Run(() =>
                 {
-                    const string path = @"C:\Users\Liam\Desktop\Mp3MetadataSerializeTest.xml";
-                    var stream = File.OpenWrite(path);
+                    //todo: implement filesystem into this test.
+                    //const string path = @"C:\Users\Liam\Desktop\Mp3MetadataSerializeTest.xml";
+                    //var stream = File.OpenWrite(path);
                     var xml = _testMetadata.Serialize();
-                    xml.Save(stream);
-                    stream.Close();
+                    //xml.Save(stream);
+                    //stream.Close();
                 });
                 return new TestResult(true, "Test Succeeded");
             }
@@ -78,9 +79,7 @@ namespace MixMatch2.Tests.SerializationTests
             {
                 return new TestResult(false, "Test failed with error: " + ex.Message, ex.StackTrace ?? "");
             }
-            
-
-        }
+		}
         /// <summary>
         /// Returns the name of this test.
         /// </summary>

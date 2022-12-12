@@ -107,7 +107,8 @@ public class Metadata : IEnumerable, IEnumerator
 					elem.Attribute("type").Value.Equals("string") ? elem.Value :
 					elem.Attribute("type").Value.Equals("number") ? double.Parse(elem.Value) :
 					elem.Attribute("type").Value.Equals("mixMatchTag") ? MixMatchTag.Deserialize(elem.Elements().First()) :
-					elem.Attribute("type").Value.Equals("nested") ? Metadata.Deserialize(elem.Elements().First()) : null
+					elem.Attribute("type").Value.Equals("nested") ? Metadata.Deserialize(elem.Elements().First()) : 
+					throw new MetadataTypeException(elem.Attribute("type").Value)
 				)
 			);
 
@@ -236,8 +237,13 @@ public class MetadataTypeException : Exception
     public MetadataTypeException(object value)
     {
         Error = "Invalid type " + value.GetType() +
-                ", Expected string, number, MixMatchTags, or MetadataTag.";
+                ", Expected string, number, MixMatchTags, or Metadata.";
     }
+
+	public MetadataTypeException(string type)
+	{
+		Error = "Invalid type " + type + ", Expected string, number, MixMatchTags, or Metadata.";
+	}
 }
 public class MixMatchTag : IEnumerable, IEnumerator
 {
